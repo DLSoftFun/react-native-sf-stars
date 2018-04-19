@@ -1,0 +1,23 @@
+{
+    "name": "react-native-sf-stars",
+    "version": "1.0.0",
+    "description": "星星个数",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DLSoftFun/react-native-sf-stars.git"
+    },
+    "keywords": [
+      "star",
+      "stars"
+    ],
+    "author": "suifeng586",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/DLSoftFun/react-native-sf-stars/issues"
+    },
+    "homepage": "https://github.com/DLSoftFun/react-native-sf-stars#readme"
+  }
