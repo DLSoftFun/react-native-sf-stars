@@ -7,8 +7,9 @@ const  MaxStar = 5
  * @param {Number} starNumber
  * @param {Number} starImage
  * @param {Number} starBgImage
+ * @param {bool} starDisabled
  * @param {Number} starSpace
- * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 间隔大小
+ * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 间隔大小 星星是否可以点击
  */
 export default class SFSatrs extends Component{
 
@@ -19,22 +20,31 @@ export default class SFSatrs extends Component{
         starWith:PropTypes.number,
         starImage:PropTypes.number,
         starBgImage:PropTypes.number,
-        starSelectIndex:PropTypes.func
+        starSelectIndex:PropTypes.func,
+        starDisabled:PropTypes.bool
 
     }
 
     static defaultProps={
-           starNumber:MaxStar,
+           starNumber:0,
            starSpace:MaxStar,
+           starDisabled:true
     }
     componentWillMount(){
         var data=[]
-        for(var i=0;i<this.props.starNumber;i++){
-            data.push(true)
+        if(this.props.starNumber==0){
+            for(var j=0;j<MaxStar-this.props.starNumber;j++){
+                data.push(false)
+            }
+        }else {
+            for(var i=0;i<this.props.starNumber;i++){
+                data.push(true)
+            }
+            for(var j=0;j<MaxStar-this.props.starNumber;j++){
+                data.push(false)
+            }
         }
-        for(var j=0;j<MaxStar-this.props.starNumber;j++){
-            data.push(false)
-        }
+
         this.setState({
             isSelect:data
         })
@@ -74,23 +84,26 @@ export default class SFSatrs extends Component{
         var data = [];
         var w = this.props.starWith
         var h = w;
-        for(var j = 0;j <this.props.starNumber; j++)
-            data.push(
-                <TouchableWithoutFeedback key={j} onPress={this.starClick.bind(this,j)}>
-                <Image style={{
-                    width: w,
-                    height: h,
-                    marginLeft: this.props.starSpace
-                    }}
-                   source={this.state.isSelect[j]==true ?this.props.starImage:this.props.starBgImage}
-                   resizeMode='cover'
-                />
-                </TouchableWithoutFeedback>
-        )
+        if(this.props.starNumber>0){
+            for(var j = 0;j <this.props.starNumber; j++)
+                data.push(
+                    <TouchableWithoutFeedback key={j} disabled={this.props.starDisabled} onPress={this.starClick.bind(this,j)}>
+                        <Image style={{
+                            width: w,
+                            height: h,
+                            marginLeft: this.props.starSpace
+                        }}
+                               source={this.state.isSelect[j]==true ?this.props.starImage:this.props.starBgImage}
+                               resizeMode='cover'
+                        />
+                    </TouchableWithoutFeedback>
+                )
+        }
+
         if(MaxStar-this.props.starNumber>0){
             var bgStar=MaxStar-this.props.starNumber
             for(var j = 0;j <bgStar; j++) data.push(
-                <TouchableWithoutFeedback key={j+this.props.starNumber} onPress={this.starClick.bind(this,j+this.props.starNumber)}>
+                <TouchableWithoutFeedback key={j+this.props.starNumber} disabled={this.props.starDisabled} onPress={this.starClick.bind(this,j+this.props.starNumber)}>
                 <Image  style={{
                     width: w,
                     height: h,
