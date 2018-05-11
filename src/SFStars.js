@@ -11,7 +11,7 @@ const  MaxStar = 5
  * @param {Number} starSpace
  * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 间隔大小 星星是否可以点击
  */
-export default class SFSatrs extends Component{
+export default class SFStars extends Component{
 
 
     static propTypes = {
