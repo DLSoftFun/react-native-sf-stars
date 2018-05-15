@@ -12,6 +12,7 @@
 |starBgImage|Number|yes|未选中星星的图片|null|
 |starDisabled|bool|no|是否可以点击星星|true|
 |starSpace|Number|no|星星之间的间距|5|
+|style|object|no|可设置除宽度,高度,布局外的属性(例如:margin)|null|
 
 # Methods
 |  Methods  |  Params  |  Param Types  |   description  |  Example  |
@@ -45,17 +46,19 @@ export default class commonUser extends Component{
         <SFSatrs starImage={require('../../res/start.png')}
                  starBgImage={require('../../res/startbg.png')}
                  starNumber={0}
-                 starWith={50}
+                 starWidth={50}
                  starSpace={10}
                  starDisabled={false}
                  starSelectIndex={this.starSelect}
+<!--             style={{margin:10}}-->
                  />
          //不需要交互点击
          <SFSatrs starImage={require('../../res/start.png')}
                   starBgImage={require('../../res/startbg.png')}
                   starNumber={0}
-                  starWith={50}
+                  starWidth={50}
                   starSpace={10}
+<!--              style={{margin:10}}-->
          />
 
             )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View,Dimensions,Text,Image,TouchableWithoutFeedback,PanResponder} from "react-native"
+import {View,Dimensions,Text,Image,TouchableWithoutFeedback,PanResponder,} from "react-native"
 import PropTypes from 'prop-types'
 const  MaxStar = 5
 /**
@@ -11,17 +11,18 @@ const  MaxStar = 5
  * @param {Number} starSpace
  * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 间隔大小 星星是否可以点击
  */
-export default class SFStars extends Component{
+export default class SFSatrs extends Component{
 
 
     static propTypes = {
         starNumber:PropTypes.number,
         starSpace:PropTypes.number,
-        starWith:PropTypes.number,
+        starWidth:PropTypes.number,
         starImage:PropTypes.number,
         starBgImage:PropTypes.number,
         starSelectIndex:PropTypes.func,
-        starDisabled:PropTypes.bool
+        starDisabled:PropTypes.bool,
+        style:PropTypes.object
 
     }
 
@@ -29,6 +30,9 @@ export default class SFStars extends Component{
            starNumber:0,
            starSpace:MaxStar,
            starDisabled:true
+    }
+    componentWillReceiveProps() {
+
     }
     componentWillMount(){
         var data=[]
@@ -58,20 +62,22 @@ export default class SFStars extends Component{
 
     }
     render(){
-        const {starNumber,starWith,starSpace}=this.props
+        const {starNumber,starWidth,starSpace}=this.props
         return (
 
-                <View style={{
-                    width:
-                    starNumber*starWith+
+                <View style={[
+                    this.props.style,
+                    {
+                    width: starNumber*starWidth+
                     starSpace*(starNumber+1)
-                    +(MaxStar-starNumber)*starWith
+                    +(MaxStar-starNumber)*starWidth
                     +starSpace*(MaxStar-starNumber),
-                    height:starWith,
+                    height:starWidth,
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
-                    alignItems: 'center' ,
-                }}
+                    alignItems: 'center',
+                    }]
+                }
                 >
                     {this.renderChirld()}
                 </View>
@@ -82,7 +88,7 @@ export default class SFStars extends Component{
     renderChirld=()=>{
 
         var data = [];
-        var w = this.props.starWith
+        var w = this.props.starWidth
         var h = w;
         if(this.props.starNumber>0){
             for(var j = 0;j <this.props.starNumber; j++)
@@ -91,7 +97,7 @@ export default class SFStars extends Component{
                         <Image style={{
                             width: w,
                             height: h,
-                            marginLeft: this.props.starSpace
+                            marginLeft: this.props.starSpace,
                         }}
                                source={this.state.isSelect[j]==true ?this.props.starImage:this.props.starBgImage}
                                resizeMode='cover'
