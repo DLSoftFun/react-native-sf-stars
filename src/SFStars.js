@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {View,Dimensions,Text,Image,TouchableWithoutFeedback,PanResponder,} from "react-native"
 import PropTypes from 'prop-types'
-const  MaxStar = 5
+const  starpadding = 5
 /**
  * @param {Number} starWith
  * @param {Number} starNumber
@@ -9,7 +9,9 @@ const  MaxStar = 5
  * @param {Number} starBgImage
  * @param {bool} starDisabled
  * @param {Number} starSpace
- * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 间隔大小 星星是否可以点击
+ * @param {Number} MaxStar
+ * @param {object} style
+ * @constructor 单个星星宽度 星星个数 选中图片 非选中图片 星星是否可以点击 间隔大小 最大星星数量 可设置部分属性
  */
 export default class SFSatrs extends Component{
 
@@ -22,14 +24,16 @@ export default class SFSatrs extends Component{
         starBgImage:PropTypes.number,
         starSelectIndex:PropTypes.func,
         starDisabled:PropTypes.bool,
-        style:PropTypes.object
+        style:PropTypes.object,
+        MaxStar:PropTypes.number
 
     }
 
     static defaultProps={
            starNumber:0,
-           starSpace:MaxStar,
-           starDisabled:true
+           starSpace:starpadding,
+           starDisabled:true,
+           MaxStar:5
     }
     componentWillReceiveProps() {
 
@@ -37,14 +41,14 @@ export default class SFSatrs extends Component{
     componentWillMount(){
         var data=[]
         if(this.props.starNumber==0){
-            for(var j=0;j<MaxStar-this.props.starNumber;j++){
+            for(var j=0;j<this.props.MaxStar-this.props.starNumber;j++){
                 data.push(false)
             }
         }else {
             for(var i=0;i<this.props.starNumber;i++){
                 data.push(true)
             }
-            for(var j=0;j<MaxStar-this.props.starNumber;j++){
+            for(var j=0;j<this.props.MaxStar-this.props.starNumber;j++){
                 data.push(false)
             }
         }
@@ -70,8 +74,8 @@ export default class SFSatrs extends Component{
                     {
                     width: starNumber*starWidth+
                     starSpace*(starNumber+1)
-                    +(MaxStar-starNumber)*starWidth
-                    +starSpace*(MaxStar-starNumber),
+                    +(this.props.MaxStar-starNumber)*starWidth
+                    +starSpace*(this.props.MaxStar-starNumber),
                     height:starWidth,
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
@@ -106,8 +110,8 @@ export default class SFSatrs extends Component{
                 )
         }
 
-        if(MaxStar-this.props.starNumber>0){
-            var bgStar=MaxStar-this.props.starNumber
+        if(this.props.MaxStar-this.props.starNumber>0){
+            var bgStar=this.props.MaxStar-this.props.starNumber
             for(var j = 0;j <bgStar; j++) data.push(
                 <TouchableWithoutFeedback key={j+this.props.starNumber} disabled={this.props.starDisabled} onPress={this.starClick.bind(this,j+this.props.starNumber)}>
                 <Image  style={{
@@ -129,7 +133,7 @@ export default class SFSatrs extends Component{
         for(var i = 0;i<index+1;i++){
             data.push(true)
         }
-        for(var j=0;j<MaxStar-index;j++){
+        for(var j=0;j<this.props.MaxStar-index;j++){
             data.push(false)
         }
         this.setState({
