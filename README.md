@@ -1,5 +1,5 @@
 # react-native-sf-stars
-
+&
 # 安装
 * npm i react-native-sf-stars
 

@@ -1,6 +1,6 @@
 {
     "name": "react-native-sf-stars",
-    "version": "1.0.6",
+    "version": "1.0.61",
     "description": "星星个数",
     "main": "index.js",
     "scripts": {
